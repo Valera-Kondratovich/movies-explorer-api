@@ -20,20 +20,20 @@ const limiter = rateLimit({
 });
 
 const { PORT = 3000 } = process.env;
-
+const { MONGODB_URL = 'mongodb://127.0.0.1:27017/bitfilmsdb' } = process.env;
 const app = express();
 app.listen(PORT, () => {
   // eslint-disable-next-line no-console
   console.log(`Слушаю порт ${PORT}`);
 });
-mongoose.connect('mongodb://127.0.0.1:27017/bitfilmsdb', {
+mongoose.connect(MONGODB_URL, {
   useNewUrlParser: true,
 });
 
 app.use(requestLogger);
 app.use(cors({
   credentials: true,
-  origin: 'https://mesto.kondratovich.nomoreparties.sbs', //поменять адрес
+  origin: 'https://mesto.kondratovich.nomoreparties.sbs',
 }));
 app.use(cookieSession({
   secret: 'yourSecret',
