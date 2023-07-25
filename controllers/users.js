@@ -61,6 +61,7 @@ const createUser = (req, res, next) => {
 const getUserAboutMe = (req, res, next) => {
   User.findById(req.user._id)
     .orFail(new NotFoundError('Пользователь не найден'))
+    .select('-_id')
     .then((user) => res.status(200).send(user))
     .catch((err) => {
       next(err);
